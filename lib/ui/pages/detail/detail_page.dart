@@ -65,12 +65,25 @@ class DetailPage extends StatelessWidget {
                   ),
                   const Divider(),
                   const TitleDetail(title: "Elenco", margin: EdgeInsets.only(left: 8, right: 8, top: 12, bottom: 18)),
-                  SizedBox(
-                    height: 100,
+                  Container(
+                    height: 144,
+                    margin: const EdgeInsets.only(bottom: 24),
                     child: ListView.separated(
-                      itemBuilder: (context, index) => const CircleAvatar(
-                        minRadius: 60,
-                        backgroundColor: Colors.amber,
+                      itemBuilder: (context, index) => Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const CircleAvatar(
+                            minRadius: 54,
+                            backgroundColor: Colors.amber,
+                          ),
+                          Container(
+                            child: Text(
+                              "Teste",
+                              style: Theme.of(context).textTheme.headline6?.copyWith(fontSize: 18),
+                            ),
+                            margin: const EdgeInsets.only(left: 8, right: 8, top: 12),
+                          ),
+                        ],
                       ),
                       itemCount: 3,
                       padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -79,7 +92,7 @@ class DetailPage extends StatelessWidget {
                         width: 24,
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
