@@ -7,6 +7,7 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Detalhes do filme"),
@@ -64,33 +65,49 @@ class DetailPage extends StatelessWidget {
                     margin: const EdgeInsets.only(left: 8, right: 8, top: 12, bottom: 18),
                   ),
                   const Divider(),
-                  const TitleDetail(title: "Elenco", margin: EdgeInsets.only(left: 8, right: 8, top: 12, bottom: 18)),
-                  Container(
-                    height: 144,
-                    margin: const EdgeInsets.only(bottom: 24),
-                    child: ListView.separated(
-                      itemBuilder: (context, index) => Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                  TitleDetail(
+                    title: "Elenco",
+                    margin: EdgeInsets.only(
+                      left: screenSize.width * 2 / 100,
+                      right: 8,
+                      top: 12,
+                      bottom: 18,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 54 * 2 + screenSize.height * 8 / 100,
+                    child: ListView.builder(
+                      itemBuilder: (context, index) => Row(
                         children: [
-                          const CircleAvatar(
-                            minRadius: 54,
-                            backgroundColor: Colors.amber,
+                          const SizedBox(
+                            width: 8,
                           ),
-                          Container(
-                            child: Text(
-                              "Teste",
-                              style: Theme.of(context).textTheme.headline6?.copyWith(fontSize: 18),
-                            ),
-                            margin: const EdgeInsets.only(left: 8, right: 8, top: 12),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const CircleAvatar(
+                                radius: 54,
+                                backgroundColor: Colors.amber,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(top: screenSize.height * 2 / 100),
+                                child: Text(
+                                  "Teste",
+                                  style: Theme.of(context).textTheme.headline6?.copyWith(
+                                        fontSize: 18,
+                                      ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: screenSize.width * 2 / 100,
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                      itemCount: 3,
+                      itemCount: 5,
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       scrollDirection: Axis.horizontal,
-                      separatorBuilder: (context, index) => const SizedBox(
-                        width: 24,
-                      ),
                     ),
                   ),
                 ],
