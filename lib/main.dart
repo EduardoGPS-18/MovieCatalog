@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'ui/components/components.dart';
 import 'ui/config/routes.dart';
-import 'ui/pages/detail/detail_page.dart';
 import 'ui/pages/pages.dart';
 
 void main() {
@@ -22,6 +21,7 @@ class MyApp extends StatelessWidget {
       routes: {
         AppRoutes.HOME_PAGE: (_) => const HomePage(),
         AppRoutes.DETAIL_PAGE: (_) => const DetailPage(),
+        AppRoutes.VIEW_MORE_PAGE: (_) => const ViewMorePage(),
       },
     );
   }
