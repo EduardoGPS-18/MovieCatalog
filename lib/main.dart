@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 
+import 'infra/http/http.dart';
+import 'presentation/detail/detail.dart';
+import 'presentation/presenters.dart';
+import 'presentation/view_more/view_more.dart';
 import 'ui/components/components.dart';
 import 'ui/config/routes.dart';
 import 'ui/pages/pages.dart';
@@ -17,11 +22,11 @@ class MyApp extends StatelessWidget {
       title: "Nerdflix",
       theme: AppTheme.darkThemeData,
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRoutes.DETAIL_PAGE,
+      initialRoute: AppRoutes.HOME_PAGE,
       routes: {
-        AppRoutes.HOME_PAGE: (_) => const HomePage(),
-        AppRoutes.DETAIL_PAGE: (_) => const DetailPage(),
-        AppRoutes.VIEW_MORE_PAGE: (_) => const ViewMorePage(),
+        AppRoutes.HOME_PAGE: (_) => HomePage(StreamHomePresenter(HTTPAdapter(Client()))),
+        AppRoutes.DETAIL_PAGE: (_) => DetailPage(StreamDetailPresenter(HTTPAdapter(Client()))),
+        AppRoutes.VIEW_MORE_PAGE: (_) => ViewMorePage(StreamViewMorePresenter(HTTPAdapter(Client()))),
       },
     );
   }
