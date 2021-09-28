@@ -7,14 +7,12 @@ import 'http.dart';
 class HTTPAdapter implements HTTPClient {
   final Client client;
 
-  HTTPAdapter({
-    required this.client,
-  });
+  HTTPAdapter(this.client);
 
   @override
   Future<dynamic> request({
     required String url,
-    required String method,
+    required HTTPMethod method,
     Map? body,
     Map<String, String>? headers,
   }) async {
@@ -30,16 +28,16 @@ class HTTPAdapter implements HTTPClient {
     late Future<Response>? futureResponse;
 
     try {
-      if (method == 'post') {
+      if (method == HTTPMethod.post) {
         futureResponse = client.post(Uri.parse(url), headers: defaultHeaders, body: jsonBody);
-      } else if (method == 'get') {
+      } else if (method == HTTPMethod.get) {
         futureResponse = client.get(Uri.parse(url), headers: defaultHeaders);
-      } else if (method == 'put') {
+      } else if (method == HTTPMethod.put) {
         futureResponse = client.put(Uri.parse(url), headers: defaultHeaders, body: jsonBody);
       }
 
       if (futureResponse != null) {
-        response = await futureResponse.timeout(const Duration(seconds: 10));
+        response = await futureResponse.timeout(const Duration(seconds: 25));
       }
     } catch (error) {
       throw HttpError.serverError;

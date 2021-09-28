@@ -1,8 +1,10 @@
 abstract class HTTPClient {
   Future<dynamic> request({
     required String url,
-    required String method,
+    required HTTPMethod method,
     Map<String, dynamic>? body,
     Map<String, String>? headers,
   });
 }
+
+enum HTTPMethod { get, put, post }
