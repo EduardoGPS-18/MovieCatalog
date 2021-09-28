@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 class TitleDetail extends StatelessWidget {
   final String title;
   final EdgeInsetsGeometry margin;
-  const TitleDetail({Key? key, required this.title, required this.margin}) : super(key: key);
+  const TitleDetail({
+    Key? key,
+    required this.title,
+    required this.margin,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
