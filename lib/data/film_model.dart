@@ -27,10 +27,10 @@ class RemoteFilmModel {
 
   factory RemoteFilmModel.fromMap(Map<String, dynamic> map) {
     return RemoteFilmModel(
-      id: map['id'] ?? "",
-      title: map['title'] ?? "",
-      image: map['image'] ?? "",
-      year: map['year'] ?? "",
+      id: map['id'] ?? "000",
+      title: map['title'] ?? "Titulo não definido",
+      image: map['image'] ?? "https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg",
+      year: map['year'] ?? "0000",
       imDbRating: double.tryParse(map['imDbRating'] ?? "") ?? 0,
     );
   }
