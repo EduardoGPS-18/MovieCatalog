@@ -1,8 +1,7 @@
 import 'dart:convert';
 
-import 'package:movie_catalog/data/models/actor_model.dart';
-
 import '../../domain/entity/entity.dart';
+import 'models.dart';
 
 class RemoteFilmInformation {
   String id;
