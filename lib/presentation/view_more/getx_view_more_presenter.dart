@@ -1,16 +1,19 @@
 import 'dart:async';
 
+import 'package:get/get.dart';
+
 import '../../data/data.dart';
 import '../../infra/http/http.dart';
 import '../../ui/config/config.dart';
 import '../../ui/pages/pages.dart';
 import '../../ui/pages/view_more/viewmodel/film_viewmodel.dart';
 
-class StreamViewMorePresenter implements ViewMorePresenter {
+class GetxViewMorePresenter extends GetxController implements ViewMorePresenter {
   HTTPClient client;
-  StreamViewMorePresenter(this.client);
+  GetxViewMorePresenter(this.client);
 
-  final StreamController<List<FilmViewModel>> _filmStreamController = StreamController<List<FilmViewModel>>();
+  final _filmStreamController = Rx<List<FilmViewModel>>([]);
+
   @override
   Stream<List<FilmViewModel>> get filmsStream => _filmStreamController.stream;
 
@@ -24,6 +27,6 @@ class StreamViewMorePresenter implements ViewMorePresenter {
       filmList.add(FilmViewModel.fromRemoteFilmModel(currentFilm));
     }
 
-    _filmStreamController.add(filmList);
+    _filmStreamController.subject.add(filmList);
   }
 }

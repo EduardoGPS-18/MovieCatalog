@@ -24,9 +24,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: AppRoutes.HOME_PAGE,
       routes: {
-        AppRoutes.HOME_PAGE: (_) => HomePage(StreamHomePresenter(HTTPAdapter(Client()))),
-        AppRoutes.DETAIL_PAGE: (_) => DetailPage(StreamDetailPresenter(HTTPAdapter(Client()))),
-        AppRoutes.VIEW_MORE_PAGE: (_) => ViewMorePage(StreamViewMorePresenter(HTTPAdapter(Client()))),
+        AppRoutes.HOME_PAGE: (_) => HomePage(GetxHomePresenter(HTTPAdapter(Client()))),
+        AppRoutes.DETAIL_PAGE: (_) => DetailPage(GetxDetailPresenter(HTTPAdapter(Client()))),
+        AppRoutes.VIEW_MORE_PAGE: (_) => ViewMorePage(GetxViewMorePresenter(HTTPAdapter(Client()))),
       },
     );
   }

@@ -1,1 +1,1 @@
-export 'stream_detail_presenter.dart';
+export 'getx_detail_presenter.dart';

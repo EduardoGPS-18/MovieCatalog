@@ -45,4 +45,8 @@ class FilmDetailViewModel {
   String toJson() => json.encode(toMap());
 
   factory FilmDetailViewModel.fromJson(String source) => FilmDetailViewModel.fromMap(json.decode(source));
+
+  factory FilmDetailViewModel.empty() {
+    return FilmDetailViewModel(image: "", title: "", actorList: [], synopsis: "");
+  }
 }

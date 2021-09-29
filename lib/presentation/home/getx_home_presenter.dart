@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:get/get.dart';
+
 import '../../data/data.dart';
 import '../../infra/http/http.dart';
 import '../../ui/config/config.dart';
@@ -7,13 +9,13 @@ import '../../ui/pages/home/home.dart';
 import '../../ui/pages/home/viewmodel/film_viewmodel.dart';
 import '../../ui/pages/home/viewmodel/release_film_viewmodel.dart';
 
-class StreamHomePresenter implements HomePresenter {
+class GetxHomePresenter extends GetxController implements HomePresenter {
   HTTPClient client;
 
-  final StreamController<List<FilmViewModel>> _dramasStreamController = StreamController<List<FilmViewModel>>();
-  final StreamController<List<FilmViewModel>> _arsenalStreamController = StreamController<List<FilmViewModel>>();
-  final StreamController<List<FilmViewModel>> _ghostStoryStreamController = StreamController<List<FilmViewModel>>();
-  final StreamController<List<ReleaseFilmViewModel>> _releasesFilmStream = StreamController();
+  final Rx<List<FilmViewModel>> _dramasStreamController = Rx<List<FilmViewModel>>([]);
+  final Rx<List<FilmViewModel>> _arsenalStreamController = Rx<List<FilmViewModel>>([]);
+  final Rx<List<FilmViewModel>> _ghostStoryStreamController = Rx<List<FilmViewModel>>([]);
+  final Rx<List<ReleaseFilmViewModel>> _releasesFilmStream = Rx<List<ReleaseFilmViewModel>>([]);
 
   @override
   Stream<List<ReleaseFilmViewModel>> get releasesFilmStream => _releasesFilmStream.stream;
@@ -25,13 +27,13 @@ class StreamHomePresenter implements HomePresenter {
         "ghost-story": _ghostStoryStreamController.stream,
       };
 
-  Map<String, Sink<List<FilmViewModel>>> get filmSink => {
-        "dramas": _dramasStreamController.sink,
-        "arsenal": _arsenalStreamController.sink,
-        "ghost-story": _ghostStoryStreamController.sink,
+  Map<String, GetStream<List<FilmViewModel>>> get filmSink => {
+        "dramas": _dramasStreamController.subject,
+        "arsenal": _arsenalStreamController.subject,
+        "ghost-story": _ghostStoryStreamController.subject,
       };
 
-  StreamHomePresenter(this.client);
+  GetxHomePresenter(this.client);
 
   @override
   Future<void> getReleases() async {
@@ -42,7 +44,7 @@ class StreamHomePresenter implements HomePresenter {
       ReleaseFilmViewModel currentFilm = ReleaseFilmViewModel.fromRemoteReleaseFilmModel(RemoteReleaseFilmModel.fromMap(film));
       filmList.add(currentFilm);
     }
-    _releasesFilmStream.add(filmList);
+    _releasesFilmStream.subject.add(filmList);
   }
 
   @override
