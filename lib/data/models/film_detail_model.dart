@@ -1,6 +1,8 @@
 import 'dart:convert';
 
-import '../../domain/entity/film_information_entity.dart';
+import 'package:movie_catalog/data/models/actor_model.dart';
+
+import '../../domain/entity/entity.dart';
 
 class RemoteFilmInformation {
   String id;
@@ -15,7 +17,7 @@ class RemoteFilmInformation {
   List<String> directorList;
   List<String> writerList;
   List<String> starList;
-  List<Actor> actorList;
+  List<ActorModel> actorList;
   List<String> genreList;
 
   RemoteFilmInformation({
@@ -36,7 +38,7 @@ class RemoteFilmInformation {
   });
 
   FilmInformationEntity toEntity() {
-    return FilmInformationEntity(synopsis: plot, id: id, title: title, image: image, starList: starList);
+    return FilmInformationEntity(synopsis: plot, id: id, title: title, image: image, actorList: actorList);
   }
 
   Map<String, dynamic> toMap() {
@@ -71,7 +73,7 @@ class RemoteFilmInformation {
       directorList: List.from(map['directorList'] ?? []).map((e) => e["name"].toString()).toList(),
       writerList: List.from(map['writerList'] ?? []).map((e) => e["name"].toString()).toList(),
       starList: List.from(map['starList'] ?? []).map((e) => e["name"].toString()).toList(),
-      actorList: List.from(map['actorList'] ?? []).map((e) => Actor.fromMap(e)).toList(),
+      actorList: List.from(map['actorList'] ?? []).map((e) => ActorModel.fromMap(e)).toList(),
       genreList: List.from(map['genreList'] ?? []).map((e) => e["value"].toString()).toList(),
     );
   }
@@ -79,31 +81,4 @@ class RemoteFilmInformation {
   String toJson() => json.encode(toMap());
 
   factory RemoteFilmInformation.fromJson(String source) => RemoteFilmInformation.fromMap(json.decode(source));
-}
-
-class Actor {
-  String id;
-  String image;
-  String name;
-  Actor({
-    required this.id,
-    required this.image,
-    required this.name,
-  });
-
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'image': image,
-      'name': name,
-    };
-  }
-
-  factory Actor.fromMap(Map<String, dynamic> map) {
-    return Actor(
-      id: map['id'],
-      image: map['image'],
-      name: map['name'],
-    );
-  }
 }
