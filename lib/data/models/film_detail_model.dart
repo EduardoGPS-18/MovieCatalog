@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import '../../domain/entity/film_information_entity.dart';
+
 class RemoteFilmInformation {
   String id;
   String title;
@@ -32,6 +34,10 @@ class RemoteFilmInformation {
     required this.actorList,
     required this.genreList,
   });
+
+  FilmInformationEntity toEntity() {
+    return FilmInformationEntity(synopsis: plot, id: id, title: title, image: image, starList: starList);
+  }
 
   Map<String, dynamic> toMap() {
     return {
