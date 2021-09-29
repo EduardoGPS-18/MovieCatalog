@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import '../../../../data/data.dart';
+import '../../../../domain/domain.dart';
 
 class ReleaseFilmViewModel {
   String id;
@@ -14,6 +15,10 @@ class ReleaseFilmViewModel {
     required this.starList,
     required this.image,
   });
+
+  factory ReleaseFilmViewModel.fromEntity(ReleasFilmEntity entity) {
+    return ReleaseFilmViewModel(id: entity.id, title: entity.title, starList: entity.starList, image: entity.image);
+  }
 
   factory ReleaseFilmViewModel.fromRemoteReleaseFilmModel(RemoteReleaseFilmModel remoteReleaseFilmModel) {
     return ReleaseFilmViewModel(
