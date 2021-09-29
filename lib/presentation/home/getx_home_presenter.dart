@@ -25,15 +25,15 @@ class GetxHomePresenter extends GetxController implements HomePresenter {
 
   @override
   Map<String, Stream<List<HomeFilmViewModel>>> get filmStream => {
-        "dramas": _dramasStreamController.stream,
+        "love": _dramasStreamController.stream,
         "arsenal": _arsenalStreamController.stream,
-        "ghost-story": _ghostStoryStreamController.stream,
+        "battle": _ghostStoryStreamController.stream,
       };
 
   Map<String, GetStream<List<HomeFilmViewModel>>> get filmSink => {
-        "dramas": _dramasStreamController.subject,
+        "love": _dramasStreamController.subject,
         "arsenal": _arsenalStreamController.subject,
-        "ghost-story": _ghostStoryStreamController.subject,
+        "battle": _ghostStoryStreamController.subject,
       };
 
   @override
