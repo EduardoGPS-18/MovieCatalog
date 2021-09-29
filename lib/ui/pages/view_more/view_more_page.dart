@@ -76,8 +76,12 @@ class ViewMorePage extends StatelessWidget {
                         cacheExtent: 200,
                         addAutomaticKeepAlives: false,
                         itemCount: 10,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, crossAxisSpacing: 15, mainAxisSpacing: 15, mainAxisExtent: 350),
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 15,
+                          mainAxisSpacing: 15,
+                          mainAxisExtent: 350,
+                        ),
                         itemBuilder: (context, index) => Container(
                           height: 333,
                           width: 164,
