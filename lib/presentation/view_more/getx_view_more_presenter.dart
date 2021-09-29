@@ -2,31 +2,23 @@ import 'dart:async';
 
 import 'package:get/get.dart';
 
-import '../../data/data.dart';
-import '../../infra/http/http.dart';
-import '../../ui/config/config.dart';
+import '../../domain/domain.dart';
 import '../../ui/pages/pages.dart';
-import '../../ui/pages/view_more/viewmodel/film_viewmodel.dart';
+import '../../ui/pages/view_more/viewmodel/view_more_film_viewmodel.dart';
 
 class GetxViewMorePresenter extends GetxController implements ViewMorePresenter {
-  HTTPClient client;
-  GetxViewMorePresenter(this.client);
+  LoadFilmByCategory loadFilmByCategory;
+  GetxViewMorePresenter(this.loadFilmByCategory);
 
-  final _filmStreamController = Rx<List<FilmViewModel>>([]);
+  final _filmStreamController = Rx<List<ViewMoreFilmViewModel>>([]);
 
   @override
-  Stream<List<FilmViewModel>> get filmsStream => _filmStreamController.stream;
+  Stream<List<ViewMoreFilmViewModel>> get filmsStream => _filmStreamController.stream;
 
   @override
   Future<void> getFilmsByCategory(String category) async {
-    var response = await client.request(url: FilmApi.getApiPathByCategory(category), method: HTTPMethod.get);
-    final List<FilmViewModel> filmList = [];
+    List<FilmEntity> filmsEntity = await loadFilmByCategory.loadFilmsByCategory(category: category);
 
-    for (Map<String, dynamic> film in (response["items"] as List)) {
-      RemoteFilmModel currentFilm = RemoteFilmModel.fromMap(film);
-      filmList.add(FilmViewModel.fromRemoteFilmModel(currentFilm));
-    }
-
-    _filmStreamController.subject.add(filmList);
+    _filmStreamController.subject.add(filmsEntity.map((filmEntity) => ViewMoreFilmViewModel.fromEntity(filmEntity)).toList());
   }
 }
