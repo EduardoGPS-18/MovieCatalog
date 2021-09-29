@@ -62,7 +62,7 @@ class DetailPage extends StatelessWidget {
                           padding: const EdgeInsets.all(12),
                           child: Text(
                             filmSnapshot.data?.title ?? "",
-                            style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                            style: Theme.of(context).textTheme.headline5!.copyWith(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w300,
                                 ),
@@ -123,17 +123,7 @@ class DetailPage extends StatelessWidget {
                                     CachedNetworkImageBuilder(
                                       errorWidget: Column(
                                         children: [
-                                          CircleAvatar(
-                                            backgroundColor: Colors.black12,
-                                            child: Center(
-                                              child: Text(
-                                                "Erro ao carregar imagem!",
-                                                style: Theme.of(context).textTheme.headline6?.copyWith(fontSize: 14),
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            ),
-                                            radius: 54,
-                                          ),
+                                          const CustomCircleAvatar(text: "Erro ao carregar imagem!"),
                                           Text(
                                             filmSnapshot.data?.actorList[index].name ?? "Nome",
                                             style: Theme.of(context).textTheme.headline6?.copyWith(
@@ -152,12 +142,12 @@ class DetailPage extends StatelessWidget {
                                         ),
                                       ),
                                       builder: (image) => Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                         child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            CircleAvatar(
-                                              backgroundImage: Image.file(image).image,
-                                              radius: 54,
+                                            CustomCircleAvatar(
+                                              image: image,
                                             ),
                                             Text(
                                               filmSnapshot.data?.actorList[index].name ?? "Nome",
@@ -266,17 +256,7 @@ class DetailPage extends StatelessWidget {
                                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
                                         child: Column(
                                           children: [
-                                            CircleAvatar(
-                                              backgroundColor: Colors.black12,
-                                              child: Center(
-                                                child: Text(
-                                                  "Carregando!",
-                                                  style: Theme.of(context).textTheme.headline6?.copyWith(fontSize: 14),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              ),
-                                              radius: 54,
-                                            ),
+                                            const CustomCircleAvatar(text: "Carregando!"),
                                             Text(
                                               filmSnapshot.data?.actorList[index].name ?? "***",
                                               style: Theme.of(context).textTheme.headline6?.copyWith(
