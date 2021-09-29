@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
-import 'infra/http/http.dart';
+import 'infra/http/http_adapter.dart';
 import 'presentation/detail/detail.dart';
 import 'presentation/presenters.dart';
 import 'presentation/view_more/view_more.dart';

@@ -1,3 +1,2 @@
-export 'film_detail_model.dart';
-export 'film_model.dart';
-export 'release_film_model.dart';
+export 'http/http.dart';
+export 'models/models.dart';
