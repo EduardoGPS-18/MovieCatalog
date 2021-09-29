@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
-import 'infra/http/http_adapter.dart';
-import 'presentation/detail/detail.dart';
+import 'data/usecases/usecases.dart';
+import 'infra/http/http.dart';
 import 'presentation/presenters.dart';
-import 'presentation/view_more/view_more.dart';
-import 'ui/components/components.dart';
-import 'ui/config/routes.dart';
+import 'ui/components/theme/theme.dart';
+import 'ui/config/config.dart';
+import 'ui/config/film_api.dart';
 import 'ui/pages/pages.dart';
 
 void main() {
@@ -24,9 +24,38 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: AppRoutes.HOME_PAGE,
       routes: {
-        AppRoutes.HOME_PAGE: (_) => HomePage(GetxHomePresenter(HTTPAdapter(Client()))),
-        AppRoutes.DETAIL_PAGE: (_) => DetailPage(GetxDetailPresenter(HTTPAdapter(Client()))),
-        AppRoutes.VIEW_MORE_PAGE: (_) => ViewMorePage(GetxViewMorePresenter(HTTPAdapter(Client()))),
+        AppRoutes.HOME_PAGE: (_) => HomePage(
+              GetxHomePresenter(
+                loadReleasesFilm: RemoteLoadReleasesFilms(
+                  client: HTTPAdapter(Client()),
+                  url: FilmApi.RELEASES_FILM,
+                ),
+                loadFilmByCategory: RemoteLoadFilmByCategory(
+                  client: HTTPAdapter(Client()),
+                  url: FilmApi.apiPathToSearchFilmsByCategory,
+                ),
+              ),
+            ),
+        AppRoutes.DETAIL_PAGE: (_) => DetailPage(
+              GetxDetailPresenter(
+                RemoteLoadFilmInformation(
+                  client: HTTPAdapter(
+                    Client(),
+                  ),
+                  url: FilmApi.apiPathToSearchFilmInformation,
+                ),
+              ),
+            ),
+        AppRoutes.VIEW_MORE_PAGE: (_) => ViewMorePage(
+              GetxViewMorePresenter(
+                RemoteLoadFilmByCategory(
+                  client: HTTPAdapter(
+                    Client(),
+                  ),
+                  url: FilmApi.apiPathToSearchFilmsByCategory,
+                ),
+              ),
+            ),
       },
     );
   }
