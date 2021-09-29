@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-class RemoteFilmDetailModel {
+class RemoteFilmInformation {
   String id;
   String title;
   String originalTitle;
@@ -16,7 +16,7 @@ class RemoteFilmDetailModel {
   List<Actor> actorList;
   List<String> genreList;
 
-  RemoteFilmDetailModel({
+  RemoteFilmInformation({
     required this.id,
     required this.title,
     required this.originalTitle,
@@ -51,8 +51,8 @@ class RemoteFilmDetailModel {
     };
   }
 
-  factory RemoteFilmDetailModel.fromMap(Map<String, dynamic> map) {
-    return RemoteFilmDetailModel(
+  factory RemoteFilmInformation.fromMap(Map<String, dynamic> map) {
+    return RemoteFilmInformation(
       id: map['id'] ?? "0000",
       title: map['title'] ?? "Sem titulo definido!",
       plot: map['plot'] ?? "Sem sinopse definida",
@@ -72,7 +72,7 @@ class RemoteFilmDetailModel {
 
   String toJson() => json.encode(toMap());
 
-  factory RemoteFilmDetailModel.fromJson(String source) => RemoteFilmDetailModel.fromMap(json.decode(source));
+  factory RemoteFilmInformation.fromJson(String source) => RemoteFilmInformation.fromMap(json.decode(source));
 }
 
 class Actor {

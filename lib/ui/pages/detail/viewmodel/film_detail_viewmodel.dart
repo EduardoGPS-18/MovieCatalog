@@ -15,7 +15,7 @@ class FilmDetailViewModel {
     required this.synopsis,
   });
 
-  factory FilmDetailViewModel.fromRemoteFilmDetail(RemoteFilmDetailModel film) {
+  factory FilmDetailViewModel.fromRemoteFilmInformation(RemoteFilmInformation film) {
     return FilmDetailViewModel(
       image: film.image,
       title: film.title,

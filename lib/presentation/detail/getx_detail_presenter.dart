@@ -20,7 +20,7 @@ class GetxDetailPresenter extends GetxController implements DetailPresenter {
   @override
   Future<void> loadFilmInformation({required String filmId}) async {
     var response = await httpClient.request(url: FilmApi.getApiPathByFilmId(filmId), method: HTTPMethod.get);
-    FilmDetailViewModel film = FilmDetailViewModel.fromRemoteFilmDetail(RemoteFilmDetailModel.fromMap(response));
+    FilmDetailViewModel film = FilmDetailViewModel.fromRemoteFilmInformation(RemoteFilmInformation.fromMap(response));
     _streamController.subject.add(film);
   }
 }
