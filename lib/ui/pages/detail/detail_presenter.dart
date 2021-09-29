@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'viewmodel/film_detail_viewmodel.dart';
+import 'viewmodel/film_information_viewmodel.dart';
 
 abstract class DetailPresenter {
   Stream<FilmInformationViewModel> get streamDetail;
