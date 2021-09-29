@@ -41,6 +41,7 @@ dependencies:
   carousel_slider: ^4.0.0
   get: ^4.3.8
   equatable: ^2.0.3
+  staggered_grid_view_flutter: ^0.0.4
 
 dev_dependencies:
   flutter_test:
