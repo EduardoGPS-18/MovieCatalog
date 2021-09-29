@@ -11,7 +11,7 @@ class MovieScrolling extends StatelessWidget {
   final String title;
   final String category;
   final bool activeButton;
-  final Stream<List<FilmViewModel>>? stream;
+  final Stream<List<HomeFilmViewModel>>? stream;
 
   const MovieScrolling({
     Key? key,
@@ -47,7 +47,7 @@ class MovieScrolling extends StatelessWidget {
             ],
           ),
         ),
-        StreamBuilder<List<FilmViewModel>>(
+        StreamBuilder<List<HomeFilmViewModel>>(
           stream: stream,
           builder: (context, snapshot) {
             if (snapshot.hasData && snapshot.data!.isNotEmpty) {
