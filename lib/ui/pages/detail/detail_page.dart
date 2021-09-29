@@ -121,16 +121,26 @@ class DetailPage extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     CachedNetworkImageBuilder(
-                                      errorWidget: CircleAvatar(
-                                        backgroundColor: Colors.black12,
-                                        child: Center(
-                                          child: Text(
-                                            "Erro ao buscar imagem!",
-                                            style: Theme.of(context).textTheme.headline6?.copyWith(fontSize: 14),
-                                            textAlign: TextAlign.center,
+                                      errorWidget: Column(
+                                        children: [
+                                          CircleAvatar(
+                                            backgroundColor: Colors.black12,
+                                            child: Center(
+                                              child: Text(
+                                                "Erro ao carregar imagem!",
+                                                style: Theme.of(context).textTheme.headline6?.copyWith(fontSize: 14),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                            radius: 54,
                                           ),
-                                        ),
-                                        radius: 54,
+                                          Text(
+                                            filmSnapshot.data?.actorList[index].name ?? "Nome",
+                                            style: Theme.of(context).textTheme.headline6?.copyWith(
+                                                  fontSize: 16,
+                                                ),
+                                          ),
+                                        ],
                                       ),
                                       url: filmSnapshot.data!.actorList[index].image,
                                       placeHolder: Shimmer.fromColors(
@@ -252,17 +262,28 @@ class DetailPage extends StatelessWidget {
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      const CircleAvatar(
-                                        radius: 54,
-                                        backgroundColor: Colors.amber,
-                                      ),
                                       Padding(
-                                        padding: EdgeInsets.only(top: screenSize.height * 2 / 100),
-                                        child: Text(
-                                          "*********",
-                                          style: Theme.of(context).textTheme.headline6?.copyWith(
-                                                fontSize: 18,
+                                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                                        child: Column(
+                                          children: [
+                                            CircleAvatar(
+                                              backgroundColor: Colors.black12,
+                                              child: Center(
+                                                child: Text(
+                                                  "Carregando!",
+                                                  style: Theme.of(context).textTheme.headline6?.copyWith(fontSize: 14),
+                                                  textAlign: TextAlign.center,
+                                                ),
                                               ),
+                                              radius: 54,
+                                            ),
+                                            Text(
+                                              filmSnapshot.data?.actorList[index].name ?? "***",
+                                              style: Theme.of(context).textTheme.headline6?.copyWith(
+                                                    fontSize: 16,
+                                                  ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                       SizedBox(
