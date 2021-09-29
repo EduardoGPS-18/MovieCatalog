@@ -1,6 +1,8 @@
 import 'package:cached_network_image_builder/cached_network_image_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:staggered_grid_view_flutter/widgets/staggered_grid_view.dart';
+import 'package:staggered_grid_view_flutter/widgets/staggered_tile.dart';
 
 import '../../config/config.dart';
 import 'view_more.dart';
@@ -35,15 +37,13 @@ class ViewMorePage extends StatelessWidget {
                 stream: presenter.filmsStream,
                 builder: (context, snapshot) {
                   if (snapshot.hasData && snapshot.data != null && snapshot.data!.isNotEmpty) {
-                    return GridView.builder(
-                      padding: const EdgeInsets.all(16),
-                      itemCount: snapshot.data?.length ?? 0,
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisExtent: 350,
-                        crossAxisSpacing: 15,
-                        mainAxisSpacing: 15,
-                      ),
+                    return StaggeredGridView.countBuilder(
+                      mainAxisSpacing: 20,
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      crossAxisSpacing: 20,
+                      crossAxisCount: 2,
+                      itemCount: snapshot.data!.length,
+                      staggeredTileBuilder: (index) => const StaggeredTile.fit(1),
                       itemBuilder: (context, index) => InkWell(
                         onTap: () => Navigator.of(context).pushNamed(
                           AppRoutes.DETAIL_PAGE,
@@ -80,7 +80,7 @@ class ViewMorePage extends StatelessWidget {
                           crossAxisCount: 2,
                           crossAxisSpacing: 15,
                           mainAxisSpacing: 15,
-                          mainAxisExtent: 350,
+                          mainAxisExtent: 300,
                         ),
                         itemBuilder: (context, index) => Container(
                           height: 333,
