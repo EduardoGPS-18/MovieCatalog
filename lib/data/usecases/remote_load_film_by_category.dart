@@ -12,7 +12,7 @@ class RemoteLoadFilmByCategory implements LoadFilmByCategory {
   });
 
   @override
-  Future<List<FilmEntity>> loadFilmsByCategory() async {
+  Future<List<FilmEntity>> loadFilmsByCategory({required String category}) async {
     final List<dynamic> response = await httpClient.request(url: url, method: HTTPMethod.get);
 
     return response.map((film) => RemoteFilmModel.fromJson(film).toEntity()).toList();
