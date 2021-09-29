@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../config/config.dart';
-import '../pages.dart';
+import 'view_more.dart';
 
 class ViewMorePage extends StatelessWidget {
   final ViewMorePresenter presenter;
@@ -31,7 +31,7 @@ class ViewMorePage extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: StreamBuilder<List<FilmViewModel>>(
+              child: StreamBuilder<List<ViewMoreFilmViewModel>>(
                 stream: presenter.filmsStream,
                 builder: (context, snapshot) {
                   if (snapshot.hasData && snapshot.data != null && snapshot.data!.isNotEmpty) {
