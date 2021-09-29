@@ -10,13 +10,15 @@ import '../../pages/home/viewmodel/viewmodel.dart';
 class MovieScrolling extends StatelessWidget {
   final String title;
   final String category;
+  final bool activeButton;
   final Stream<List<FilmViewModel>>? stream;
 
   const MovieScrolling({
     Key? key,
-    this.stream,
     required this.title,
     required this.category,
+    this.activeButton = true,
+    this.stream,
   }) : super(key: key);
 
   @override
