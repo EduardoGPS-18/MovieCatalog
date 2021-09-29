@@ -1,22 +1,25 @@
 import 'dart:convert';
 
 import '../../../../data/data.dart';
+import '../../../../data/models/actor_model.dart';
+import '../../../../domain/domain.dart';
+import '../../../../domain/entity/film_information_entity.dart';
 
-class FilmDetailViewModel {
+class FilmInformationViewModel {
   String image;
   String title;
-  List<Actor> actorList;
+  List<ActorEntity> actorList;
   String synopsis;
 
-  FilmDetailViewModel({
+  FilmInformationViewModel({
     required this.image,
     required this.title,
     required this.actorList,
     required this.synopsis,
   });
 
-  factory FilmDetailViewModel.fromRemoteFilmInformation(RemoteFilmInformation film) {
-    return FilmDetailViewModel(
+  factory FilmInformationViewModel.fromRemoteFilmInformation(RemoteFilmInformation film) {
+    return FilmInformationViewModel(
       image: film.image,
       title: film.title,
       actorList: film.actorList,
@@ -33,20 +36,24 @@ class FilmDetailViewModel {
     };
   }
 
-  factory FilmDetailViewModel.fromMap(Map<String, dynamic> map) {
-    return FilmDetailViewModel(
+  factory FilmInformationViewModel.fromEntity(FilmInformationEntity entity) {
+    return FilmInformationViewModel(image: entity.image, title: entity.title, actorList: entity.actorList, synopsis: entity.synopsis);
+  }
+
+  factory FilmInformationViewModel.fromMap(Map<String, dynamic> map) {
+    return FilmInformationViewModel(
       image: map['image'],
       title: map['title'],
-      actorList: List.from(map['actorList'] ?? []).map((e) => Actor.fromMap(e)).toList(),
+      actorList: List.from(map['actorList'] ?? []).map((e) => ActorModel.fromMap(e)).toList(),
       synopsis: map['synopsis'],
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory FilmDetailViewModel.fromJson(String source) => FilmDetailViewModel.fromMap(json.decode(source));
+  factory FilmInformationViewModel.fromJson(String source) => FilmInformationViewModel.fromMap(json.decode(source));
 
-  factory FilmDetailViewModel.empty() {
-    return FilmDetailViewModel(image: "", title: "", actorList: [], synopsis: "");
+  factory FilmInformationViewModel.empty() {
+    return FilmInformationViewModel(image: "", title: "", actorList: [], synopsis: "");
   }
 }

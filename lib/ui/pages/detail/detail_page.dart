@@ -15,7 +15,7 @@ class DetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size screenSize = MediaQuery.of(context).size;
     final String filmId = ModalRoute.of(context)?.settings.arguments as String;
-    presenter.loadFilmInformation(filmId: filmId);
+    presenter.loadFilmInformationByFilmId(filmId: filmId);
 
     return Scaffold(
       appBar: AppBar(
@@ -23,7 +23,7 @@ class DetailPage extends StatelessWidget {
         centerTitle: true,
         elevation: 0,
       ),
-      body: StreamBuilder<FilmDetailViewModel>(
+      body: StreamBuilder<FilmInformationViewModel>(
         stream: presenter.streamDetail,
         builder: (context, filmSnapshot) {
           if (filmSnapshot.hasData && filmSnapshot.data != null) {
