@@ -12,7 +12,8 @@ class RemoteLoadReleasesFilms implements LoadReleasesFilm {
 
   @override
   Future<List<ReleasFilmEntity>> loadReleasesFilm() async {
-    List<dynamic> res = await client.request(url: url, method: HTTPMethod.get);
-    return res.map((film) => RemoteReleaseFilmModel.fromJson(film).toEntity()).toList();
+    Map<String, dynamic> res = await client.request(url: url, method: HTTPMethod.get);
+
+    return List.from(res["items"]).map((film) => RemoteReleaseFilmModel.fromMap(film).toEntity()).toList();
   }
 }
