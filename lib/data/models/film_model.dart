@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import '../../domain/domain.dart';
+
 class RemoteFilmModel {
   String id;
   String title;
@@ -38,4 +40,8 @@ class RemoteFilmModel {
   String toJson() => json.encode(toMap());
 
   factory RemoteFilmModel.fromJson(String source) => RemoteFilmModel.fromMap(json.decode(source));
+
+  FilmEntity toEntity() {
+    return FilmEntity(id: id, title: title, image: image);
+  }
 }
