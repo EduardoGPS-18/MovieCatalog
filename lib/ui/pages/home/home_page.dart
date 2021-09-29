@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> {
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
                     "Lançamento",
-                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                    style: Theme.of(context).textTheme.headline6!.copyWith(
                           fontSize: 24,
                           fontWeight: FontWeight.w300,
                         ),
@@ -143,10 +143,9 @@ class _HomePageState extends State<HomePage> {
                       highlightColor: Colors.grey[900]!,
                       child: Column(
                         children: [
-                          Container(
-                            color: Colors.black26,
-                            height: 316,
-                            width: 216,
+                          CarouselSlider(
+                            items: [Container(color: Colors.black12)],
+                            options: CarouselOptions(height: 400),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(12),
@@ -164,9 +163,11 @@ class _HomePageState extends State<HomePage> {
                               category: categories[0],
                               title: "***********",
                               stream: null,
+                              activeButton: false,
                             ),
                           if (widget.homePresenter.filmStream.containsKey(categories[1]))
                             MovieScrolling(
+                              activeButton: false,
                               category: categories[1],
                               title: "*******",
                               stream: null,
@@ -175,6 +176,7 @@ class _HomePageState extends State<HomePage> {
                             MovieScrolling(
                               category: categories[2],
                               title: "**************",
+                              activeButton: false,
                               stream: null,
                             ),
                         ],
