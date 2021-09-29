@@ -14,13 +14,10 @@ class RemoteReleaseFilmModel {
   String plot;
   String contentRating;
   String imDbRating;
-  String imDbRaatingCount;
+  String imDbRatingCount;
   String metacriticRating;
-  String genres;
   List<String> genreList;
-  String directors;
   List<String> directorList;
-  String stars;
   List<String> starList;
 
   RemoteReleaseFilmModel({
@@ -35,13 +32,10 @@ class RemoteReleaseFilmModel {
     required this.plot,
     required this.contentRating,
     required this.imDbRating,
-    required this.imDbRaatingCount,
+    required this.imDbRatingCount,
     required this.metacriticRating,
-    required this.genres,
     required this.genreList,
-    required this.directors,
     required this.directorList,
-    required this.stars,
     required this.starList,
   });
 
@@ -58,13 +52,9 @@ class RemoteReleaseFilmModel {
       'plot': plot,
       'contentRating': contentRating,
       'imDbRating': imDbRating,
-      'imDbRaatingCount': imDbRaatingCount,
       'metacriticRating': metacriticRating,
-      'genres': genres,
       'genreList': genreList,
-      'directors': directors,
       'directorList': directorList,
-      'stars': stars,
       'starList': starList,
     };
   }
@@ -82,13 +72,10 @@ class RemoteReleaseFilmModel {
       plot: map['plot'] ?? "Sem Sinopse",
       contentRating: map['contentRating'] ?? "0",
       imDbRating: map['imDbRating'] ?? "0",
-      imDbRaatingCount: map['imDbRaatingCount'] ?? "0",
+      imDbRatingCount: map['imDbRatingCount'] ?? "0",
       metacriticRating: map['metacriticRating'] ?? "0",
-      genres: map['genres'] ?? "Generos indefinidos",
       genreList: List.from(map['genreList'] ?? []).map((e) => e["value"].toString()).toList(),
-      directors: map['directors'] ?? "Sem diretores definidos",
       directorList: List.from(map['directorList'] ?? []).map((e) => e["name"].toString()).toList(),
-      stars: map['stars'] ?? "Sem estrelas definidas",
       starList: List.from(map['starList'] ?? []).map((e) => e["name"].toString()).toList(),
     );
   }
