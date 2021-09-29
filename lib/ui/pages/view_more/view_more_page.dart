@@ -57,6 +57,7 @@ class ViewMorePage extends StatelessWidget {
                                 image,
                                 fit: BoxFit.fill,
                               ),
+                              errorWidget: Container(),
                             ),
                             Text(snapshot.data?[index].title ?? "Sem titulo"),
                           ],
@@ -70,6 +71,10 @@ class ViewMorePage extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: GridView.builder(
+                        addSemanticIndexes: true,
+                        semanticChildCount: 20,
+                        cacheExtent: 200,
+                        addAutomaticKeepAlives: false,
                         itemCount: 10,
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, crossAxisSpacing: 15, mainAxisSpacing: 15, mainAxisExtent: 350),
