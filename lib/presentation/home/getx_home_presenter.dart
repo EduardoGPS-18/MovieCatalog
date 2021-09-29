@@ -2,67 +2,53 @@ import 'dart:async';
 
 import 'package:get/get.dart';
 
-import '../../data/data.dart';
-import '../../infra/http/http.dart';
-import '../../ui/config/config.dart';
+import '../../domain/domain.dart';
 import '../../ui/pages/home/home.dart';
-import '../../ui/pages/home/viewmodel/film_viewmodel.dart';
-import '../../ui/pages/home/viewmodel/release_film_viewmodel.dart';
+import '../../ui/pages/home/viewmodel/viewmodel.dart';
 
 class GetxHomePresenter extends GetxController implements HomePresenter {
-  HTTPClient client;
+  LoadReleasesFilm loadReleasesFilm;
+  LoadFilmByCategory loadFilmByCategory;
 
-  final Rx<List<FilmViewModel>> _dramasStreamController = Rx<List<FilmViewModel>>([]);
-  final Rx<List<FilmViewModel>> _arsenalStreamController = Rx<List<FilmViewModel>>([]);
-  final Rx<List<FilmViewModel>> _ghostStoryStreamController = Rx<List<FilmViewModel>>([]);
+  GetxHomePresenter({
+    required this.loadReleasesFilm,
+    required this.loadFilmByCategory,
+  });
+
+  final Rx<List<HomeFilmViewModel>> _dramasStreamController = Rx<List<HomeFilmViewModel>>([]);
+  final Rx<List<HomeFilmViewModel>> _arsenalStreamController = Rx<List<HomeFilmViewModel>>([]);
+  final Rx<List<HomeFilmViewModel>> _ghostStoryStreamController = Rx<List<HomeFilmViewModel>>([]);
   final Rx<List<ReleaseFilmViewModel>> _releasesFilmStream = Rx<List<ReleaseFilmViewModel>>([]);
 
   @override
   Stream<List<ReleaseFilmViewModel>> get releasesFilmStream => _releasesFilmStream.stream;
 
   @override
-  Map<String, Stream<List<FilmViewModel>>> get filmStream => {
+  Map<String, Stream<List<HomeFilmViewModel>>> get filmStream => {
         "dramas": _dramasStreamController.stream,
         "arsenal": _arsenalStreamController.stream,
         "ghost-story": _ghostStoryStreamController.stream,
       };
 
-  Map<String, GetStream<List<FilmViewModel>>> get filmSink => {
+  Map<String, GetStream<List<HomeFilmViewModel>>> get filmSink => {
         "dramas": _dramasStreamController.subject,
         "arsenal": _arsenalStreamController.subject,
         "ghost-story": _ghostStoryStreamController.subject,
       };
 
-  GetxHomePresenter(this.client);
-
   @override
   Future<void> getReleases() async {
-    Map<String, dynamic> mapFilms = await client.request(url: FilmApi.RELEASES_FILM, method: HTTPMethod.get);
+    List<ReleasFilmEntity> mapFilms = await loadReleasesFilm.loadReleasesFilm();
 
-    final List<ReleaseFilmViewModel> filmList = [];
-    for (Map<String, dynamic> film in (mapFilms["items"] as List)) {
-      ReleaseFilmViewModel currentFilm = ReleaseFilmViewModel.fromRemoteReleaseFilmModel(RemoteReleaseFilmModel.fromMap(film));
-      filmList.add(currentFilm);
-    }
-    _releasesFilmStream.subject.add(filmList);
+    _releasesFilmStream.subject.add(mapFilms.map((entity) => ReleaseFilmViewModel.fromEntity(entity)).toList());
   }
 
   @override
   Future<void> getFilmsByCategory(String category) async {
-    Map<String, dynamic> mapFilms = await client.request(
-      url: FilmApi.getApiPathByCategory(category),
-      method: HTTPMethod.get,
-    );
-    final List<FilmViewModel> filmList = [];
-    if (mapFilms["items"] == null) {
-      return;
-    }
-    for (Map<String, dynamic> film in (mapFilms["items"] as List)) {
-      RemoteFilmModel currentFilm = RemoteFilmModel.fromMap(film);
-      filmList.add(FilmViewModel.fromRemoteFilmModel(currentFilm));
-    }
+    List<FilmEntity> mapFilms = await loadFilmByCategory.loadFilmsByCategory(category: category);
+
     if (filmSink.containsKey(category)) {
-      filmSink[category]!.add(filmList);
+      filmSink[category]!.add(mapFilms.map((entity) => HomeFilmViewModel.fromEntity(entity)).toList());
     }
   }
 }
