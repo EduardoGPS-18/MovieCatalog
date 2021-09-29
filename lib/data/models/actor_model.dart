@@ -1,7 +1,7 @@
 import '../../domain/domain.dart';
 
 class ActorModel extends ActorEntity {
-  ActorModel({
+  const ActorModel({
     required String id,
     required String image,
     required String name,
