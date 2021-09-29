@@ -2,25 +2,24 @@ import 'dart:async';
 
 import 'package:get/get.dart';
 
-import '../../data/data.dart';
-import '../../infra/http/http.dart';
-import '../../ui/config/config.dart';
+import '../../domain/domain.dart';
+import '../../domain/entity/film_information_entity.dart';
 import '../../ui/pages/detail/detail.dart';
 
 class GetxDetailPresenter extends GetxController implements DetailPresenter {
-  HTTPClient httpClient;
+  LoadFilmInformation filmInformation;
 
-  GetxDetailPresenter(this.httpClient);
+  GetxDetailPresenter(this.filmInformation);
 
-  final Rx<FilmDetailViewModel> _streamController = Rx<FilmDetailViewModel>(FilmDetailViewModel.empty());
-
-  @override
-  Stream<FilmDetailViewModel> get streamDetail => _streamController.stream;
+  final Rx<FilmInformationViewModel> _streamController = Rx<FilmInformationViewModel>(FilmInformationViewModel.empty());
 
   @override
-  Future<void> loadFilmInformation({required String filmId}) async {
-    var response = await httpClient.request(url: FilmApi.getApiPathByFilmId(filmId), method: HTTPMethod.get);
-    FilmDetailViewModel film = FilmDetailViewModel.fromRemoteFilmInformation(RemoteFilmInformation.fromMap(response));
-    _streamController.subject.add(film);
+  Stream<FilmInformationViewModel> get streamDetail => _streamController.stream;
+
+  @override
+  Future<void> loadFilmInformationByFilmId({required String filmId}) async {
+    FilmInformationEntity entity = await filmInformation.loadFilmInformation(filmId: filmId);
+
+    _streamController.subject.add(FilmInformationViewModel.fromEntity(entity));
   }
 }
