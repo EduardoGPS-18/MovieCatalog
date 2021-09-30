@@ -57,7 +57,11 @@ class ViewMorePage extends StatelessWidget {
                                 image,
                                 fit: BoxFit.fill,
                               ),
-                              errorWidget: Container(),
+                              errorWidget: Container(
+                                color: Colors.black12,
+                                height: 300,
+                                width: 200,
+                              ),
                             ),
                             Text(snapshot.data?[index].title ?? "Sem titulo"),
                           ],
