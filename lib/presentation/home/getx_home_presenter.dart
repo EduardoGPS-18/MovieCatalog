@@ -15,7 +15,7 @@ class GetxHomePresenter extends GetxController implements HomePresenter {
     required this.loadFilmByCategory,
   });
 
-  final Rx<List<HomeFilmViewModel>> _dramasStreamController = Rx<List<HomeFilmViewModel>>([]);
+  final Rx<List<HomeFilmViewModel>> _gunStreamController = Rx<List<HomeFilmViewModel>>([]);
   final Rx<List<HomeFilmViewModel>> _arsenalStreamController = Rx<List<HomeFilmViewModel>>([]);
   final Rx<List<HomeFilmViewModel>> _ghostStoryStreamController = Rx<List<HomeFilmViewModel>>([]);
   final Rx<List<ReleaseFilmViewModel>> _releasesFilmStream = Rx<List<ReleaseFilmViewModel>>([]);
@@ -25,13 +25,13 @@ class GetxHomePresenter extends GetxController implements HomePresenter {
 
   @override
   Map<String, Stream<List<HomeFilmViewModel>>> get filmStream => {
-        "love": _dramasStreamController.stream,
+        "gun": _gunStreamController.stream,
         "arsenal": _arsenalStreamController.stream,
         "battle": _ghostStoryStreamController.stream,
       };
 
   Map<String, GetStream<List<HomeFilmViewModel>>> get filmSink => {
-        "love": _dramasStreamController.subject,
+        "gun": _gunStreamController.subject,
         "arsenal": _arsenalStreamController.subject,
         "battle": _ghostStoryStreamController.subject,
       };

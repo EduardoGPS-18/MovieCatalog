@@ -77,8 +77,6 @@ class ViewMorePage extends StatelessWidget {
                       child: GridView.builder(
                         addSemanticIndexes: true,
                         semanticChildCount: 20,
-                        cacheExtent: 200,
-                        addAutomaticKeepAlives: false,
                         itemCount: 10,
                         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,

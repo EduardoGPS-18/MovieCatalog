@@ -21,7 +21,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<String> categories = ["love", "arsenal", "battle"];
+  final List<String> categories = ["gun", "arsenal", "battle"];
 
   @override
   void initState() {
