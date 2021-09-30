@@ -1,4 +1,4 @@
-name: movie_catalog
+name: Catalogo de filmes
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -36,12 +36,12 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^2.1.0
   http: ^0.13.3
-  cached_network_image_builder: ^0.2.0
   shimmer: ^2.0.0
   carousel_slider: ^4.0.0
   get: ^4.3.8
   equatable: ^2.0.3
   staggered_grid_view_flutter: ^0.0.4
+  cached_network_image: ^3.1.0
 
 dev_dependencies:
   flutter_test:
