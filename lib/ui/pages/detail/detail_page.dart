@@ -1,4 +1,4 @@
-import 'package:cached_network_image_builder/cached_network_image_builder.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -42,18 +42,20 @@ class DetailPage extends StatelessWidget {
                               Radius.circular(8),
                             ),
                           ),
-                          child: CachedNetworkImageBuilder(
-                            url: filmSnapshot.data?.image ?? "",
-                            errorWidget: Container(),
-                            placeHolder: Shimmer.fromColors(
+                          child: CachedNetworkImage(
+                            imageUrl: filmSnapshot.data?.image ?? "",
+                            errorWidget: (context, url, error) => Container(
+                              child: Center(child: Text(error)),
+                            ),
+                            placeholder: (context, url) => Shimmer.fromColors(
                               child: Container(
                                 color: Colors.black26,
                               ),
                               baseColor: Colors.grey[600]!,
                               highlightColor: Colors.grey[900]!,
                             ),
-                            builder: (image) => Image.file(
-                              image,
+                            imageBuilder: (ctx, imageProvider) => Image(
+                              image: imageProvider,
                               fit: BoxFit.contain,
                             ),
                           ),
@@ -120,8 +122,8 @@ class DetailPage extends StatelessWidget {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    CachedNetworkImageBuilder(
-                                      errorWidget: Column(
+                                    CachedNetworkImage(
+                                      errorWidget: (context, url, error) => Column(
                                         children: [
                                           const CustomCircleAvatar(text: "Erro ao carregar imagem!"),
                                           Text(
@@ -132,8 +134,8 @@ class DetailPage extends StatelessWidget {
                                           ),
                                         ],
                                       ),
-                                      url: filmSnapshot.data!.actorList[index].image,
-                                      placeHolder: Shimmer.fromColors(
+                                      imageUrl: filmSnapshot.data!.actorList[index].image,
+                                      placeholder: (context, url) => Shimmer.fromColors(
                                         baseColor: Colors.grey[600]!,
                                         highlightColor: Colors.grey[900]!,
                                         child: const CircleAvatar(
@@ -141,13 +143,13 @@ class DetailPage extends StatelessWidget {
                                           radius: 54,
                                         ),
                                       ),
-                                      builder: (image) => Padding(
+                                      imageBuilder: (ctx, imageProvider) => Padding(
                                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             CustomCircleAvatar(
-                                              image: image,
+                                              image: imageProvider,
                                             ),
                                             Text(
                                               filmSnapshot.data?.actorList[index].name ?? "Nome",

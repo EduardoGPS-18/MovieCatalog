@@ -1,6 +1,7 @@
-import 'package:cached_network_image_builder/cached_network_image_builder.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:staggered_grid_view_flutter/rendering/sliver_staggered_grid.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_grid_view.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_tile.dart';
 
@@ -37,13 +38,15 @@ class ViewMorePage extends StatelessWidget {
                 stream: presenter.filmsStream,
                 builder: (context, snapshot) {
                   if (snapshot.hasData && snapshot.data != null && snapshot.data!.isNotEmpty) {
-                    return StaggeredGridView.countBuilder(
-                      mainAxisSpacing: 20,
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      crossAxisSpacing: 20,
-                      crossAxisCount: 2,
+                    return StaggeredGridView.builder(
+                      padding: const EdgeInsets.all(20),
+                      gridDelegate: SliverStaggeredGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 20,
+                        crossAxisSpacing: 20,
+                        staggeredTileBuilder: (index) => const StaggeredTile.fit(1),
+                      ),
                       itemCount: snapshot.data!.length,
-                      staggeredTileBuilder: (index) => const StaggeredTile.fit(1),
                       itemBuilder: (context, index) => InkWell(
                         onTap: () => Navigator.of(context).pushNamed(
                           AppRoutes.DETAIL_PAGE,
@@ -51,13 +54,23 @@ class ViewMorePage extends StatelessWidget {
                         ),
                         child: Column(
                           children: [
-                            CachedNetworkImageBuilder(
-                              url: snapshot.data?[index].image ?? "",
-                              builder: (image) => Image.file(
-                                image,
-                                fit: BoxFit.fill,
+                            CachedNetworkImage(
+                              imageUrl: snapshot.data?[index].image ?? "",
+                              imageBuilder: (ctx, imageProvider) => Image(
+                                image: imageProvider,
+                                fit: BoxFit.cover,
                               ),
-                              errorWidget: Container(
+                              fit: BoxFit.cover,
+                              placeholder: (context, url) => Shimmer.fromColors(
+                                baseColor: Colors.grey[600]!,
+                                highlightColor: Colors.grey[900]!,
+                                child: Container(
+                                  color: Colors.black12,
+                                  height: 300,
+                                  width: 180,
+                                ),
+                              ),
+                              errorWidget: (ctx, url, err) => Container(
                                 color: Colors.black12,
                                 height: 300,
                                 width: 200,

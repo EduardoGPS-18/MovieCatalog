@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:cached_network_image_builder/cached_network_image_builder.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -72,11 +72,11 @@ class MovieScrolling extends StatelessWidget {
                           ),
                           height: 190,
                           width: 134,
-                          child: CachedNetworkImageBuilder(
-                            url: snapshot.data![index].image,
-                            builder: (img) {
-                              return Image.file(
-                                img,
+                          child: CachedNetworkImage(
+                            imageUrl: snapshot.data![index].image,
+                            imageBuilder: (ctx, imgProvider) {
+                              return Image(
+                                image: imgProvider,
                                 fit: BoxFit.cover,
                               );
                             },

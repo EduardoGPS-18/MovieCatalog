@@ -1,4 +1,4 @@
-import 'package:cached_network_image_builder/cached_network_image_builder.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
@@ -83,10 +83,10 @@ class _HomePageState extends State<HomePage> {
                                     arguments: snapshot.data?[index].id,
                                   ),
                                   child: SizedBox(
-                                    child: CachedNetworkImageBuilder(
-                                      url: snapshot.data![index].image,
-                                      builder: (img) => Image.file(
-                                        img,
+                                    child: CachedNetworkImage(
+                                      imageUrl: snapshot.data![index].image,
+                                      imageBuilder: (ctx, imgProvider) => Image(
+                                        image: imgProvider,
                                         fit: BoxFit.cover,
                                       ),
                                     ),
@@ -130,7 +130,7 @@ class _HomePageState extends State<HomePage> {
                           if (widget.homePresenter.filmStream.containsKey(categories[2]))
                             MovieScrolling(
                               category: categories[2],
-                              title: "Historias de fantasma",
+                              title: "Batalha",
                               stream: widget.homePresenter.filmStream[categories[2]]!,
                             ),
                         ],

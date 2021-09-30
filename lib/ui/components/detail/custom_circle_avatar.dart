@@ -1,10 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 
 class CustomCircleAvatar extends StatelessWidget {
   final String? text;
-  final File? image;
+  final ImageProvider? image;
   const CustomCircleAvatar({
     Key? key,
     this.text,
@@ -15,7 +13,7 @@ class CustomCircleAvatar extends StatelessWidget {
   Widget build(BuildContext context) {
     return CircleAvatar(
       backgroundColor: image != null ? null : Colors.black12,
-      backgroundImage: image != null ? Image.file(image!).image : null,
+      backgroundImage: image != null ? Image(image: image!).image : null,
       child: Center(
         child: Text(
           text ?? "",
