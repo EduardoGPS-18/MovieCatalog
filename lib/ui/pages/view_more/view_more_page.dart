@@ -47,6 +47,8 @@ class ViewMorePage extends StatelessWidget {
                         staggeredTileBuilder: (index) => const StaggeredTile.fit(1),
                       ),
                       itemCount: snapshot.data!.length,
+                      addAutomaticKeepAlives: false,
+                      addRepaintBoundaries: false,
                       itemBuilder: (context, index) => InkWell(
                         onTap: () => Navigator.of(context).pushNamed(
                           AppRoutes.DETAIL_PAGE,
@@ -88,7 +90,7 @@ class ViewMorePage extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: GridView.builder(
-                        addSemanticIndexes: true,
+                        addSemanticIndexes: false,
                         semanticChildCount: 20,
                         itemCount: 10,
                         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
